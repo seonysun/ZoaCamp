@@ -17,6 +17,17 @@ function FoodDetail(props){
             setFoodDetail(response.data)
         })
     },{})
+    let mm = String(foodDetail.menu)
+    let aa = mm.indexOf("^");
+    let h = '';
+    if(aa>=0){
+        let menu = foodDetail.menu.split("^")
+        h = menu.map(m=>
+            <li>{m}</li>
+        )
+    }else{
+        h = '등록없음'
+    }
     useEffect(()=>{
         const script = document.createElement("script")
         script.async = true
@@ -63,15 +74,23 @@ function FoodDetail(props){
 
         }
     })
+
     return(
         <div className={"wrapper row3"}>
             <main className={"hoc container clear"}>
                 <div className={"content three_quarter first"}>
                     <table className={"table"}>
+                        <tbody>
                         <tr>
-                            <td width={"30%"} rowSpan={"7"}>
-                                <img src={foodDetail.poster} style={{"width":"100%"}} />
+                            <td rowSpan={"7"}>
+                                <img src={foodDetail.poster} style={{"width":"900px","height":"400px"}}/>
                             </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table className={"table"}>
+                        <tbody>
+                        <tr>
                             <td colSpan={"2"}>{foodDetail.title}</td>
                         </tr>
                         <tr>
@@ -79,7 +98,7 @@ function FoodDetail(props){
                             <td width={"50%"}>{foodDetail.addr}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>전화번호</th>
+                            <th width={"20%"}>전화</th>
                             <td width={"50%"}>{foodDetail.tel}</td>
                         </tr>
                         <tr>
@@ -87,17 +106,22 @@ function FoodDetail(props){
                             <td width={"50%"}>{foodDetail.type}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>주차</th>
-                            <td width={"50%"}>{foodDetail.parking}</td>
-                        </tr>
-                        <tr>
                             <th width={"20%"}>영업시간</th>
                             <td width={"50%"}>{foodDetail.time}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>메뉴</th>
-                            <td width={"50%"}>{foodDetail.menu}</td>
+                            <th width={"20%"}>주차</th>
+                            <td width={"50%"}>{foodDetail.parking}</td>
                         </tr>
+                        <tr>
+                            <th width={"20%"}>메뉴</th>
+                            <td width={"50%"}>
+                                <ul>
+                                    {h}
+                                </ul>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div className={"sidebar one_quarter"}>

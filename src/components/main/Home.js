@@ -21,13 +21,12 @@ function Home(){
 
     return(
         <Fragment>
-            <div className="bgded overlay" style={{"background-image":"url('images/img.jpg')"}}>
+            <div className="bgded overlay" style={{"background-image":"url('images/camp2.jpg')"}}>
                 <div id="pageintro" className="hoc clear">
                     <article>
-                        <h3 className="heading">Faucibus porttitor metus</h3>
-                        <p>In nibh nullam egestas velit laoreet nullam elementum ipsum pharetra suscipit leo augue pretium
-                            felis nisl vitae ipsum curabitur quis libero.</p>
-                        <footer><a className="btn" href="#">Tristique vehicula</a></footer>
+                        <h3 className="heading">Zoa Camping</h3>
+                        <p>일상에서 벗어나 캠핑을 떠나보세요!</p>
+                        <footer><a className="btn" href="#">캠핑장 찾기</a></footer>
                     </article>
                 </div>
             </div>
@@ -60,7 +59,7 @@ function Home(){
                     <div className="clear"></div>
                 </main>
             </div>
-            <div class="bgded overlay light" style={{"background-image":"url('images/flower.jpg')"}}>
+            <div class="bgded overlay light" style={{"background-image":"url('images/camp3.jpg')"}}>
             <section id="services" class="hoc container clear">
                 <ul class="nospace group elements elements-three">
                     {html}

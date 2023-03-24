@@ -24,7 +24,7 @@ function Header(props){
         <div className="wrapper row1">
             <header id="header" className="hoc clear">
                 <div id="logo" className="fl_left">
-                    <h1 className="logoname"><NavLink to={"/"}>제주맛집<span>/</span>서울여행</NavLink></h1>
+                    <h1 className="logoname"><NavLink to={"/"}><span>ZOA CAMPING</span></NavLink></h1>
                 </div>
                 <nav id="mainav" className="fl_right">
                     <ul className="clear">
@@ -35,20 +35,20 @@ function Header(props){
                                 <li><NavLink to={"/jeju/event_list"}>행사&이벤트</NavLink></li>
                             </ul>
                         </li>
-                        <li><a className="drop" href="#">서울여행</a>
+                        <li><a className="drop" href="#">캠핑</a>
                             <ul>
-                                <li><NavLink to={"/"}>명소</NavLink></li>
-                                <li><NavLink to={"/"}>자연&관광</NavLink></li>
-                                <li><NavLink to={"/"}>쇼핑</NavLink></li>
+                                <li><NavLink to={"/"}>캠핑장 찾기</NavLink></li>
+                                <li><NavLink to={"/"}>캠핑용품</NavLink></li>
                             </ul>
                         </li>
                         <li><a className="drop" href="#">레시피</a>
                             <ul>
                                 <li><NavLink to={"/recipe/list"}>레시피</NavLink></li>
-                                <li><NavLink to={"/"}>쉐프</NavLink></li>
+                                <li><NavLink to={"/"}>주류</NavLink></li>
                             </ul>
                         </li>
-                        <li><NavLink to={"/"}>커뮤니티</NavLink></li>
+                        <li><NavLink to={"/jeju/food_find"}>맛집 검색</NavLink></li>
+                        <li><NavLink to={"/jeju/news_find"}>뉴스 검색</NavLink></li>
                     </ul>
                 </nav>
             </header>

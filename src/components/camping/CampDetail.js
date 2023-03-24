@@ -3,7 +3,7 @@ import {useParams} from "react-router";
 import axios from "axios";
 /* global kakao */
 
-function EventDetail(props){
+function CampDetail(props){
     let {no} = useParams()
     const [foodDetail, setFoodDetail] = useState({})
 
@@ -17,17 +17,6 @@ function EventDetail(props){
             setFoodDetail(response.data)
         })
     },{})
-    let mm = String(foodDetail.menu)
-    let aa = mm.indexOf("^");
-    let h = '';
-    if(aa>=0){
-        let menu = foodDetail.menu.split("^")
-        h = menu.map(m=>
-            <li>{m}</li>
-        )
-    }else{
-        h = '등록없음'
-    }
     useEffect(()=>{
         const script = document.createElement("script")
         script.async = true
@@ -74,23 +63,15 @@ function EventDetail(props){
 
         }
     })
-
     return(
         <div className={"wrapper row3"}>
             <main className={"hoc container clear"}>
                 <div className={"content three_quarter first"}>
                     <table className={"table"}>
-                        <tbody>
                         <tr>
-                            <td rowSpan={"7"}>
-                                <img src={foodDetail.poster} style={{"width":"900px","height":"400px"}}/>
+                            <td width={"30%"} rowSpan={"7"}>
+                                <img src={foodDetail.poster} style={{"width":"100%"}} />
                             </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table className={"table"}>
-                        <tbody>
-                        <tr>
                             <td colSpan={"2"}>{foodDetail.title}</td>
                         </tr>
                         <tr>
@@ -98,7 +79,7 @@ function EventDetail(props){
                             <td width={"50%"}>{foodDetail.addr}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>전화</th>
+                            <th width={"20%"}>전화번호</th>
                             <td width={"50%"}>{foodDetail.tel}</td>
                         </tr>
                         <tr>
@@ -106,22 +87,17 @@ function EventDetail(props){
                             <td width={"50%"}>{foodDetail.type}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>영업시간</th>
-                            <td width={"50%"}>{foodDetail.time}</td>
-                        </tr>
-                        <tr>
                             <th width={"20%"}>주차</th>
                             <td width={"50%"}>{foodDetail.parking}</td>
                         </tr>
                         <tr>
-                            <th width={"20%"}>메뉴</th>
-                            <td width={"50%"}>
-                                <ul>
-                                    {h}
-                                </ul>
-                            </td>
+                            <th width={"20%"}>영업시간</th>
+                            <td width={"50%"}>{foodDetail.time}</td>
                         </tr>
-                        </tbody>
+                        <tr>
+                            <th width={"20%"}>메뉴</th>
+                            <td width={"50%"}>{foodDetail.menu}</td>
+                        </tr>
                     </table>
                 </div>
                 <div className={"sidebar one_quarter"}>
@@ -131,4 +107,4 @@ function EventDetail(props){
         </div>
     )
 }
-export default EventDetail;
+export default CampDetail;
