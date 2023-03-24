@@ -10,6 +10,8 @@ import FoodDetail from "./components/food/FoodDetail";
 import EventDetail from "./components/food/EventDetail";
 import FoodFind from "./components/food/FoodFind";
 import NewsList from "./components/news/NewsList";
+import CampList from "./components/camping/CampList";
+import CampDetail from "./components/camping/CampDetail";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
             <Route exact path={"/recipe/list"} element={<RecipeList/>}/>
             <Route exact path={"/jeju/food_find"} element={<FoodFind/>}/>
             <Route exact path={"/jeju/news_find"} element={<NewsList/>}/>
+            <Route exact path={"/camp/camp_list"} element={<CampList/>}/>
+            <Route exact path={"/camp/camp_detail/:cno"} element={<CampDetail/>}/>
           </Routes>
           <Footer/>
         </Fragment>

@@ -28,6 +28,10 @@ function FoodDetail(props){
     }else{
         h = '등록없음'
     }
+
+    //쿠키 생성
+    document.cookie = "jeju"+parseInt(no)+"="+foodDetail.poster;
+
     useEffect(()=>{
         const script = document.createElement("script")
         script.async = true

@@ -3,6 +3,36 @@ import axios from "axios";
 import {NavLink} from "react-router-dom";
 
 function FoodList(){
+    const [foodList, setFoodList] = useState([])
+    const [curpage, setCurpage] = useState(1)
+    const [totalpage, setTotalpage] = useState(0)
+    const [startpage, setStartpage] = useState(0)
+    const [endpage, setEndpage] = useState(0)
+
+    useEffect(()=>{
+        axios.get('http://localhost/jeju/food_list_react',{
+            params:{
+                page:curpage
+            }
+        }).then(response=>{
+            console.log(response.data)
+            setFoodList(response.data)
+        })
+    },[])
+    useEffect(()=>{
+        axios.get('http://localhost/jeju/food_page_react',{
+            params:{
+                page:curpage
+            }
+        }).then(response=>{
+            console.log(response.data)
+            setCurpage(response.data.curpage)
+            setTotalpage(response.data.totalpage)
+            setStartpage(response.data.startpage)
+            setEndpage(response.data.endpage)
+        })
+    },[])
+
     const pageChange=(page)=>{
         axios.get('http://localhost/jeju/food_list_react',{
             params:{
@@ -25,48 +55,7 @@ function FoodList(){
         })
     }
 
-    const [foodList, setFoodList] = useState([])
-    const [curpage, setCurpage] = useState(1)
-    const [totalpage, setTotalpage] = useState(0)
-    const [startpage, setStartpage] = useState(0)
-    const [endpage, setEndpage] = useState(0)
-    const [cookieList, setCookieList] = useState([])
-
-    useEffect(()=>{
-        axios.get('http://localhost/jeju/food_list_react',{
-            params:{
-                page:curpage
-            }
-        }).then(response=>{
-            console.log(response.data)
-            setFoodList(response.data)
-        })
-        // axios.get('http://localhost/jeju/jeju_cookie_react').then(response=>{
-        //     console.log(response.data)
-        //     setCookieList(response.data)
-        // })
-    },[])
-    useEffect(()=>{
-        axios.get('http://localhost/jeju/food_page_react',{
-            params:{
-                page:curpage
-            }
-        }).then(response=>{
-            console.log(response.data)
-            setCurpage(response.data.curpage)
-            setTotalpage(response.data.totalpage)
-            setStartpage(response.data.startpage)
-            setEndpage(response.data.endpage)
-        })
-    },[])
-
     let html = foodList.map((food, index)=>
-        <li className={index%4==0?'one_quarter first':'one_quarter'}>
-            <NavLink to={"/jeju/food_detail/"+food.no}><img src={food.poster} title={food.title}/></NavLink>
-        </li>
-    )
-
-    let coo = cookieList.map((food, index)=>
         <li className={index%4==0?'one_quarter first':'one_quarter'}>
             <NavLink to={"/jeju/food_detail/"+food.no}><img src={food.poster} title={food.title}/></NavLink>
         </li>
@@ -86,6 +75,21 @@ function FoodList(){
     if(endpage<totalpage){
         row.push(<li><a href="#" onClick={()=>pageChange(endpage+1)}>Next &raquo;</a></li>)
     }
+
+    //쿠키 가져오기
+    let cookie=document.cookie.split(";")
+    let cc=[]
+    for(let i=cookie.length-1;i>=0;i--)
+    {
+        let a=cookie[i]
+        let b=a.substring(a.indexOf("=")+1)
+        cc.push(b.trim())
+    }
+    let m=cc.map((mm,index)=>
+        <li className={index%4==0?'one_quarter first':'one_quarter'}>
+            <img src={mm} style={{"height":"200px","width":"300px"}}/>
+        </li>
+    )
 
     return(
         <div className="wrapper row3">
@@ -110,7 +114,7 @@ function FoodList(){
                         <figure>
                             <header className="heading">최근 방문 맛집</header>
                             <ul className="nospace clear">
-                                {coo}
+                                {m}
                             </ul>
                         </figure>
                     </div>

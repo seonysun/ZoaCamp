@@ -81,7 +81,9 @@ function RecipeList(){
                 <div className="content">
                     <div id="gallery">
                         <figure>
-                            <header className="heading">레시피</header>
+                            <div className="sectiontitle">
+                                <h6 className="heading font-x2">레시피</h6>
+                            </div>
                             <ul className="nospace clear">
                                 {html}
                             </ul>

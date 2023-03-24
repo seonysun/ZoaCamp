@@ -83,8 +83,10 @@ function FoodFind(){
     }
 
     let html = fdata.map((food, index)=>
-        <li className={index%4==0?'one_quarter first':'one_quarter'}>
-            <NavLink to={"/jeju/food_detail/"+food.no}><img src={food.poster} title={food.title}/></NavLink>
+        <li className="one_third">
+            <article><NavLink to={"/jeju/food_detail/"+food.no}><img src={food.poster} style={{"width":"100%","height":"250px"}} /></NavLink>
+                <h6 className="heading">{food.type}</h6>
+            </article>
         </li>
     )
 
@@ -92,19 +94,19 @@ function FoodFind(){
         <div className="wrapper row3">
             <main className="hoc container clear">
                 <div className="content">
-                    <div id="gallery">
-                        <figure>
-                            <header className="heading inline">
-                                <input type={"text"} size={"30"} className={"input-sm"}
-                                       onChange={dataChange} value={ss} onKeyDown={dataKeyDown} />
-                                <input type={"button"} value="검색" className={"btn btn-sm btn-primary"}
-                                       onClick={findData} />
-                            </header>
-                            <ul className="nospace clear">
-                                {html}
-                            </ul>
-                        </figure>
+                    <div className="sectiontitle">
+                        <h6 className="heading font-x2">맛집 검색</h6>
                     </div>
+                    <div className={"inline"} style={{"height":"80px"}}>
+                        <input type={"text"} size={"30"} className={"input-sm"} style={{"height":"40px"}}
+                               onChange={dataChange} value={ss} onKeyDown={dataKeyDown} />
+                        <input type={"button"} value="검색" className={"btn btn-sm btn-primary"}
+                               onClick={findData} />
+                    </div>
+                    <ul className="nospace group elements elements-three">
+                        {html}
+                    </ul>
+                    <div style={{"height":"50px"}}></div>
                     <div className={"text-center"}>
                         <button className={"btn btn-sm btn-primary"} onClick={prev}>이전</button> &nbsp;
                         {curpage} page / {totalpage} pages

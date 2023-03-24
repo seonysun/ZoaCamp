@@ -2,21 +2,20 @@ import {useState, useEffect, Fragment} from "react";
 import axios from "axios";
 
 function Home(){
-    const [foodTop, setFoodTop] = useState([])
+    const [campTop, setCampTop] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost/jeju/food_top6').then(response=>{
+        axios.get('http://localhost/camping/camping_top6').then(response=>{
             console.log(response.data)
-            setFoodTop(response.data)
+            setCampTop(response.data)
         })
     },[])
 
-    let html = foodTop.map((food)=>
-        <li className="one_third">
-            <article><a href="#"><img src={food.poster} style={{"width":"100%"}} /></a>
-                <h6 className="heading">{food.title}</h6>
-                <p>{food.addr}</p>
-            </article>
-        </li>
+    let camp = campTop.map((camp, index)=>
+            <li className={index%3==0?'one_third first':'one_third'} style={{"margin-bottom":"20px"}}>
+                <figure><a className="imgover" href="#"><img src={camp.image} style={{"height":"250px"}} /></a>
+                    <figcaption><strong>{camp.name}</strong> <em>{camp.address}</em></figcaption>
+                </figure>
+            </li>
     )
 
     return(
@@ -59,12 +58,16 @@ function Home(){
                     <div className="clear"></div>
                 </main>
             </div>
-            <div class="bgded overlay light" style={{"background-image":"url('images/camp3.jpg')"}}>
-            <section id="services" class="hoc container clear">
-                <ul class="nospace group elements elements-three">
-                    {html}
-                </ul>
-            </section>
+            <div class="bgded overlay light" style={{"background-image":"url('images/forest.jpg')"}}>
+                <section id="services" className="hoc container clear">
+                    <div className="sectiontitle">
+                        <p className="nospace font-xs">캠핑조아에서 가장 인기있는 캠핑지 추천</p>
+                        <h6 className="heading font-x2">인기 캠핑장</h6>
+                    </div>
+                    <ul className="nospace group team">
+                        {camp}
+                    </ul>
+                </section>
             </div>
         </Fragment>
     )

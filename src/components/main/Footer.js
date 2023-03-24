@@ -1,55 +1,64 @@
 import {useState, useEffect, Fragment} from "react";
+import axios from "axios";
 
 function Footer(){
+    const [newsList, setNewsList] = useState([])
+    const [foodList, setFoodList] = useState([])
+    const [recipeList, setRecipeList] = useState([])
+
+    useEffect(()=>{
+        axios.get('http://localhost/news/news_aop_react').then(response=>{
+            console.log(response.data)
+            setNewsList(response.data)
+        })
+        axios.get('http://localhost/jeju/food_top9').then(response=>{
+            console.log(response.data)
+            setFoodList(response.data)
+        })
+        axios.get('http://localhost/recipe/recipe_top9').then(response=>{
+            console.log(response.data)
+            setRecipeList(response.data)
+        })
+    },[])
+
+    let news = newsList.map((news)=>
+        <li><a href={news.link}>{news.title}</a></li>
+    )
+    let food = foodList.map((food)=>
+        <li><a className="imgover" href="#"><img src={food.poster} /></a></li>
+    )
+    let recipe = recipeList.map((recipe)=>
+        <li><a className="imgover" href="#"><img src={recipe.poster} /></a></li>
+    )
+
     return(
         <Fragment>
-        <div className="bgded overlay row4" style={{"background-image":"url('images/demo/backgrounds/01.png')"}}>
+        <div className="bgded overlay row4" style={{"background-image":"url('images/camp3.jpg')"}}>
             <footer id="footer" className="hoc clear">
                 <div className="one_third first">
-                    <h6 className="heading">오늘의 뉴스</h6>
+                    <h4 className="heading">오늘의 뉴스</h4>
                     <ul className="nospace linklist">
-                        <li><a href="#">Sagittis leo morbi quis</a></li>
-                        <li><a href="#">Nulla vehicula felis laoreet</a></li>
-                        <li><a href="#">Pulvinar proin et eros ac</a></li>
-                        <li><a href="#">Mi vulputate accumsan fusce</a></li>
-                        <li><a href="#">At massa in sed tortor sit amet</a></li>
+                        {news}
                     </ul>
                 </div>
                 <div className="one_third">
                     <h6 className="heading">오늘의 제주 맛집 Top 9</h6>
                     <ul className="nospace clear latestimg">
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
+                        {food}
                     </ul>
                 </div>
                 <div className="one_third">
                     <h6 className="heading">오늘의 레시피 Top 9</h6>
                     <ul className="nospace clear latestimg">
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
-                        <li><a className="imgover" href="#"><img src="images/demo/100x100.png" alt="" /></a></li>
+                        {recipe}
                     </ul>
                 </div>
             </footer>
         </div>
         <div className="wrapper row5">
             <div id="copyright" className="hoc clear">
-                <p className="fl_left">Copyright &copy; 2023-02-23 - All Rights Reserved - <a href="#">Domain Name</a></p>
-                <p className="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/"
-                                                       title="Free Website Templates">OS Templates</a></p>
+                <p className="fl_left">Copyright &copy; 2023 03 - <a href="#">CampingZoa</a></p>
+                <p className="fl_right">Template by 최선형</p>
             </div>
         </div>
         </Fragment>

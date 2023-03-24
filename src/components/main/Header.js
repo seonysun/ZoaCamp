@@ -29,22 +29,21 @@ function Header(props){
                 <nav id="mainav" className="fl_right">
                     <ul className="clear">
                         <li className="active"><NavLink to={"/"}>Home</NavLink></li>
-                        <li><a className="drop" href="#">제주</a>
-                            <ul>
-                                <li><NavLink to={"/jeju/food_list"}>맛집</NavLink></li>
-                                <li><NavLink to={"/jeju/event_list"}>행사&이벤트</NavLink></li>
-                            </ul>
-                        </li>
+                        {/*<li><a className="drop" href="#">제주</a>*/}
+                        {/*    <ul>*/}
+                        {/*        <li><NavLink to={"/jeju/food_list"}>맛집</NavLink></li>*/}
+                        {/*        <li><NavLink to={"/jeju/event_list"}>행사&이벤트</NavLink></li>*/}
+                        {/*    </ul>*/}
+                        {/*</li>*/}
                         <li><a className="drop" href="#">캠핑</a>
                             <ul>
-                                <li><NavLink to={"/"}>캠핑장 찾기</NavLink></li>
-                                <li><NavLink to={"/"}>캠핑용품</NavLink></li>
+                                <li><NavLink to={"/camp/camp_list"}>캠핑장 찾기</NavLink></li>
+                                <li><NavLink to={"/camp/item_list"}>캠핑용품</NavLink></li>
                             </ul>
                         </li>
                         <li><a className="drop" href="#">레시피</a>
                             <ul>
                                 <li><NavLink to={"/recipe/list"}>레시피</NavLink></li>
-                                <li><NavLink to={"/"}>주류</NavLink></li>
                             </ul>
                         </li>
                         <li><NavLink to={"/jeju/food_find"}>맛집 검색</NavLink></li>

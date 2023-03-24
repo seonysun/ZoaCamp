@@ -4,19 +4,24 @@ import axios from "axios";
 /* global kakao */
 
 function CampDetail(props){
-    let {no} = useParams()
-    const [foodDetail, setFoodDetail] = useState({})
+    let {cno} = useParams()
+    const [campDetail, setCampDetail] = useState({})
 
     useEffect(()=>{
-        axios.get('http://localhost/jeju/food_detail_react',{
+        axios.get('http://localhost/camping/camping_detail_react',{
             params:{
-                no:no
+                cno:cno
             }
         }).then(response=>{
             console.log(response.data)
-            setFoodDetail(response.data)
+            setCampDetail(response.data)
         })
     },{})
+
+    //쿠키 생성
+    document.cookie = "camp"+parseInt(cno)+"="+campDetail.image;
+
+    //카카오맵
     useEffect(()=>{
         const script = document.createElement("script")
         script.async = true
@@ -37,7 +42,7 @@ function CampDetail(props){
             var geocoder = new kakao.maps.services.Geocoder();
 
             // 주소로 좌표를 검색합니다
-            geocoder.addressSearch(foodDetail.addr, function (result, status) {
+            geocoder.addressSearch(campDetail.address, function (result, status) {
 
                 // 정상적으로 검색이 완료됐으면
                 if (status === kakao.maps.services.Status.OK) {
@@ -52,7 +57,7 @@ function CampDetail(props){
 
                     // 인포윈도우로 장소에 대한 설명을 표시합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content: '<div style={{"width":"150px","text-align":"center","padding":"6px 0"}}">'+foodDetail.title+'</div>'
+                        content: '<div style={{"width":"150px","text-align":"center","padding":"6px 0"}}">'+campDetail.name+'</div>'
                     });
                     infowindow.open(map, marker);
 
@@ -63,46 +68,68 @@ function CampDetail(props){
 
         }
     })
+
     return(
         <div className={"wrapper row3"}>
             <main className={"hoc container clear"}>
-                <div className={"content three_quarter first"}>
-                    <table className={"table"}>
-                        <tr>
-                            <td width={"30%"} rowSpan={"7"}>
-                                <img src={foodDetail.poster} style={{"width":"100%"}} />
-                            </td>
-                            <td colSpan={"2"}>{foodDetail.title}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>주소</th>
-                            <td width={"50%"}>{foodDetail.addr}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>전화번호</th>
-                            <td width={"50%"}>{foodDetail.tel}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>음식종류</th>
-                            <td width={"50%"}>{foodDetail.type}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>주차</th>
-                            <td width={"50%"}>{foodDetail.parking}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>영업시간</th>
-                            <td width={"50%"}>{foodDetail.time}</td>
-                        </tr>
-                        <tr>
-                            <th width={"20%"}>메뉴</th>
-                            <td width={"50%"}>{foodDetail.menu}</td>
-                        </tr>
-                    </table>
+                <div className="sectiontitle">
+                    <h4 className="heading font-x2">{campDetail.name}</h4>
                 </div>
-                <div className={"sidebar one_quarter"}>
-                    <div id="map" style={{"width":"100%","height":"350px"}}></div>
+                <div className={"content"}>
+                    <div className={"one_half first"}>
+                        <table className={"table"}>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <img src={campDetail.image} style={{"height":"400px"}}/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className={"one_half"}>
+                        <table className={"table"} style={{"font-size":"18px"}}>
+                            <tbody>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>주소</th>
+                                <td width={"50%"}>{campDetail.address}</td>
+                            </tr>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>전화</th>
+                                <td width={"50%"}>{campDetail.tel}</td>
+                            </tr>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>테마</th>
+                                <td width={"50%"}>{campDetail.camp_env}</td>
+                            </tr>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>타입</th>
+                                <td width={"50%"}>{campDetail.camp_type}</td>
+                            </tr>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>주소</th>
+                                <td width={"50%"}>{campDetail.homepage}</td>
+                            </tr>
+                            <tr style={{"height":"50px"}}>
+                                <th width={"20%"}>영업일</th>
+                                <td width={"50%"}>{campDetail.day}</td>
+                            </tr>
+                            <tr style={{"height":"110px"}}>
+                                <td colSpan={"2"}>{campDetail.name}으로 놀러오세요!</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <div style={{"height":"50px"}}></div>
+                <div className={"content"}>
+                    <div id="map" style={{"width":"100%","height":"400px"}}></div>
+                </div>
+                <div style={{"height":"50px"}}></div>
+                <div className="sectiontitle">
+                    <h6 className="heading font-x2">추천 상품</h6>
+                </div>
+
             </main>
         </div>
     )
