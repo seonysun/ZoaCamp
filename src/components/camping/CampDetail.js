@@ -5,7 +5,9 @@ import axios from "axios";
 
 function CampDetail(props){
     let {cno} = useParams()
+
     const [campDetail, setCampDetail] = useState({})
+    const [itemList, setItemList] = useState([])
 
     useEffect(()=>{
         axios.get('http://localhost/camping/camping_detail_react',{
@@ -17,6 +19,20 @@ function CampDetail(props){
             setCampDetail(response.data)
         })
     },{})
+    useEffect(()=>{
+        axios.get('http://localhost/item/item_list_react').then(response=>{
+            console.log(response.data)
+            setItemList(response.data)
+        })
+    },[])
+
+    let html=itemList.map((item)=>
+        <li className="one_third">
+            <article><a href="#"><img src={item.image} style={{"width":"100%"}}/> </a>
+                <h6 className="heading">{item.name}</h6>
+            </article>
+        </li>
+    )
 
     //쿠키 생성
     document.cookie = "camp"+parseInt(cno)+"="+campDetail.image;
@@ -129,7 +145,11 @@ function CampDetail(props){
                 <div className="sectiontitle">
                     <h6 className="heading font-x2">추천 상품</h6>
                 </div>
-
+                <div className={"content"}>
+                    <ul className="nospace group elements elements-three">
+                        {html}
+                    </ul>
+                </div>
             </main>
         </div>
     )

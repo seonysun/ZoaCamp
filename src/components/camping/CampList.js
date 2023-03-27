@@ -3,6 +3,7 @@ import axios from "axios";
 import {NavLink} from "react-router-dom";
 
 function CampList(){
+    const [ss, setSs] = useState('')
     const [campList, setCampList] = useState([])
     const [curpage, setCurpage] = useState(1)
     const [totalpage, setTotalpage] = useState(0)
@@ -33,6 +34,59 @@ function CampList(){
         })
     },[])
 
+    const dataChange=(e)=>{
+        setSs(e.target.value)
+    }
+    const dataKeyDown=(e)=>{
+        setCurpage(1)
+        if(e.keyCode==13){
+            axios.get("http://localhost/camping/camp_find_react",{
+                params:{
+                    page:curpage,
+                    addr:ss
+                }
+            }).then(response=>{
+                console.log(response.data)
+                setCampList(response.data)
+            })
+            axios.get('http://localhost/camping/find_page_react',{
+                params:{
+                    page:curpage,
+                    addr:ss
+                }
+            }).then(response=>{
+                console.log(response.data)
+                setCurpage(response.data.curpage)
+                setTotalpage(response.data.totalpage)
+                setStartpage(response.data.startpage)
+                setEndpage(response.data.endpage)
+            })
+        }
+    }
+    const findData=()=>{
+        setCurpage(1)
+        axios.get("http://localhost/camping/camp_find_react",{
+            params:{
+                page:curpage,
+                addr:ss
+            }
+        }).then(response=>{
+            console.log(response.data)
+            setCampList(response.data)
+        })
+        axios.get('http://localhost/camping/find_page_react',{
+            params:{
+                page:curpage,
+                addr:ss
+            }
+        }).then(response=>{
+            console.log(response.data)
+            setCurpage(response.data.curpage)
+            setTotalpage(response.data.totalpage)
+            setStartpage(response.data.startpage)
+            setEndpage(response.data.endpage)
+        })
+    }
     const pageChange=(page)=>{
         axios.get('http://localhost/camping/list_react',{
             params:{
@@ -79,26 +133,32 @@ function CampList(){
         row.push(<li><a href="#" onClick={()=>pageChange(endpage+1)}>Next &raquo;</a></li>)
     }
 
-    //쿠키 가져오기
-    let cookie=document.cookie.split(";")
-    let cc=[]
-    for(let i=cookie.length-1;i>=cookie.length-8;i--)
-    {
-        let a=cookie[i]
-        let b=a.substring(a.indexOf("=")+1)
-        cc.push(b.trim())
-    }
-    let cook=cc.map((mm, index)=>
-        <li className={index%4==0?'one_quarter first':'one_quarter'}>
-            <img src={mm} style={{"height":"200px","width":"300px"}}/>
-        </li>
-    )
+    // //쿠키 가져오기
+    // let cookie=document.cookie.split(";")
+    // let cc=[]
+    // for(let i=cookie.length-1;i>=cookie.length-8;i--)
+    // {
+    //     let a=cookie[i]
+    //     let b=a.substring(a.indexOf("=")+1)
+    //     cc.push(b.trim())
+    // }
+    // let cook=cc.map((mm, index)=>
+    //     <li className={index%4==0?'one_quarter first':'one_quarter'}>
+    //         <img src={mm} style={{"height":"200px","width":"300px"}}/>
+    //     </li>
+    // )
 
     return(
         <div className="wrapper row3">
             <main className="hoc container clear">
                 <div className="sectiontitle">
                     <h6 className="heading font-x2">캠핑장 찾기</h6>
+                </div>
+                <div className={"inline"} style={{"height":"80px"}}>
+                    <input type={"text"} size={"30"} className={"input-sm"} style={{"height":"40px"}}
+                           onChange={dataChange} value={ss} onKeyDown={dataKeyDown} />
+                    <input type={"button"} value="검색" className={"btn btn-sm btn-primary"}
+                           onClick={findData} />
                 </div>
                 <ul class="nospace group elements elements-three">
                     {html}
@@ -115,7 +175,7 @@ function CampList(){
                         <figure>
                             <header className="heading">최근 본 항목</header>
                             <ul className="nospace clear">
-                                {cook}
+                                {/*{cook}*/}
                             </ul>
                         </figure>
                     </div>

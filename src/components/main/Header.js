@@ -46,7 +46,7 @@ function Header(props){
                                 <li><NavLink to={"/recipe/list"}>레시피</NavLink></li>
                             </ul>
                         </li>
-                        <li><NavLink to={"/jeju/food_find"}>맛집 검색</NavLink></li>
+                        {/*<li><NavLink to={"/jeju/food_find"}>맛집 검색</NavLink></li>*/}
                         <li><NavLink to={"/jeju/news_find"}>뉴스 검색</NavLink></li>
                     </ul>
                 </nav>
